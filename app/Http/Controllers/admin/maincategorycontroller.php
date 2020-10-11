@@ -9,7 +9,7 @@ use App\Models\MainCategory;
 use App\Http\Requests\main_cat_request;
 use DB;
 class maincategorycontroller extends Controller
-
+//
 {
     public function index(){
     	$defaultlang = get_default_lang();
@@ -94,6 +94,7 @@ class maincategorycontroller extends Controller
 		 return redirect()->route('admin.main_cat')->with(['notsuc' => 'هذا القسم غير موجود']);
 		 /// 
 		 $category = array_values($request -> category)[0];
+		 
 		 if(!$request->has('category.0.active'))
 		  $request->request->add(['active' => 0]);
 		else

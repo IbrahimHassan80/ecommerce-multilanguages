@@ -41,8 +41,7 @@
                                 @include('admin.includes.alert.error')
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                    <form class="form" action="{{route('admin.language.store')}}" method="POST"
-                                              enctype="multipart/form-data">
+                                    <form class="form" action="{{route('admin.language.store')}}" method="POST" enctype="multipart/form-data">
                                               @csrf
                                               <div class="form-body">
                                                 <h4 class="form-section"><i class="ft-home"></i>ادخال لغه جديده</h4>

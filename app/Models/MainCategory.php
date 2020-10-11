@@ -26,10 +26,15 @@ class MainCategory extends Model
 			return ($val !== null) ? asset('assets/'.$val) : "";
 		}
 	
-
+		// Relation Ship
+		
 		// Self Relation
 		public function categories(){
 			return $this->hasMany(self::class, 'translation_of');
 		}
 
-	}
+		public function vendors(){
+			return $this->hasMany('App\models\vendor', 'category_id', 'id');
+		}
+	
+	}////

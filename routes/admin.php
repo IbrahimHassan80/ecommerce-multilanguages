@@ -50,4 +50,15 @@ Route::group(['middleware'=> 'auth:admin', 'namespace'=>'admin'], function(){
 		
 	});	
 
+	// begin Vendor Group //
+	Route::group(['prefix'=>'vendors'],function(){
+		Route::get('/', 'vendorscontroller@index')->name('admin.vendors');
+		Route::get('create', 'vendorscontroller@create')->name('admin.vendors.create');
+		Route::post('store', 'vendorscontroller@store')->name('admin.vendors.store');	
+		Route::get('edit/{id}', 'vendorscontroller@edit')->name('admin.edit.vendors');
+		Route::post('update/{id}', 'vendorscontroller@update')->name('admin.update.vendors');
+		Route::get('delete/{id}', 'vendorscontroller@destroy')->name('admin.delete.vendors');
+			
+		});	
+
 });
