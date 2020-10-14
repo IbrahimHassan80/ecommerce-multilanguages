@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Vendor;
 use App\Models\MainCategory;
 use App\Http\Requests\vendor_request;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\vendorcreated;
+
 class vendorscontroller extends Controller
 {
     public function index(){
@@ -29,7 +32,7 @@ class vendorscontroller extends Controller
         if($request->has('logo'))
             $filepath = uploadimage('vendors', $request->logo);
         
-            Vendor::create([
+            $vendor = Vendor::create([
                 'name' => $request->name,
                 'email' =>$request->email,
                 'mobile' => $request->mobile,
@@ -38,8 +41,13 @@ class vendorscontroller extends Controller
                 'active' => $request->active,
                 'logo' => $filepath
             ]);
-            return redirect()->route('admin.vendors')->with(['success' => 'تم الحفظ بنجاح']);
+        
+       Notification::send($vendor, new vendorcreated($vendor));
+       return redirect()->route('admin.vendors')->with(['success' => 'تم الحفظ بنجاح']);
+        
+        
         }catch(\Exception $ex){
+            return $ex;
             return redirect()->route('admin.vendors')->with(['notsuc' => 'يوجد مشكله الرجاء المحاوله لاحقا']);
         }
 

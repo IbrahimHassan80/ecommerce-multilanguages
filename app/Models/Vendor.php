@@ -3,9 +3,11 @@
 namespace App\models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Notifications\Notifiable;
 class Vendor extends Model
 {
+    use Notifiable;
+    
     protected $table = 'vendors';
     protected $fillable = ['name', 'logo', 'mobile', 'address', 'email', 'active', 'category_id', 'created_at',
     'updated_at'   
