@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use App\Models\MainCategory;
+use App\Models\vendor;
 use App\Http\Requests\main_cat_request;
 use DB;
+use Illuminate\Support\Str;
 class maincategorycontroller extends Controller
 //
 {
@@ -79,7 +81,7 @@ class maincategorycontroller extends Controller
 	}
 }
 	public function edit($category_id){
-		 $category = MainCategory::with('categories')->Selection()->find($category_id);
+		$category = MainCategory::with('categories')->Selection()->find($category_id);
 		if(!$category)
 		return redirect()->route('admin.main_cat')->with(['notsuc' => 'هذا القسم غير موجود']);
 		
@@ -119,5 +121,53 @@ class maincategorycontroller extends Controller
 		return redirect()->route('admin.main_cat')->with(['notsuc' => 'يوجد مشكله الرجاء المحاوله لاحقا']);
 		  }
 	}
+
+	public function destroy($id){
+		try{
+			$maincategory = MainCategory::find($id);
+			if(!$maincategory)
+				return redirect()->route('admin.main_cat')->with(['notsuc' => 'هذا القسم غير موجود']);
+			   // check relationship
+				$vendor = $maincategory->vendors();
+				if(isset($vendor) && $vendor->count() > 0){
+					return redirect()->route('admin.main_cat')->with(['notsuc' => 'لا يمكن حذف هذا القسم']);
+				}
+				
+				$image = str::after($maincategory->photo, 'assets');
+			    $image = base_path('assets'.$image);
+			    unlink($image);
+	
+				
+			    $maincategory -> categories()-> delete();
+				$maincategory->delete();
+				return redirect()->route('admin.main_cat')->with(['success' => 'تم حذف القسم بنجاح']);
+
+		}catch(\Exception $ex){
+			return $ex;
+			return redirect()->route('admin.main_cat')->with(['notsuc' => 'يوجد مشكله الرجاء المحاوله لاحقا']);
+		}
+	}
+
+
+public function change_status($id){
+	
+	try{
+		$main_category = MainCategory::find($id);
+		if(!$main_category)
+		return redirect()->route('admin.main_cat')->with(['notsuc' => 'يوجد مشكله الرجاء المحاوله لاحقا']);
+	
+		$status = $main_category->active == 0 ? 1 : 0;
+		$main_category->update(['active' => $status]);
+		
+		
+		
+		return redirect()->route('admin.main_cat')->with(['success' => 'تم تغيير حالة القسم بنجاح']);
+
+	}
+	catch(\Exception $ex){
+		return redirect()->route('admin.main_cat')->with(['notsuc' => 'يوجد مشكله الرجاء المحاوله لاحقا']);
+
+	}
+}
 
 }//end class

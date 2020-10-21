@@ -1,7 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Config;
 
-
+// just get active language //
 function get_languages(){
 	return \App\Models\language::active()->selection()->get();
 }

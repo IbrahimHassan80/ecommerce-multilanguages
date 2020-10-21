@@ -9,9 +9,10 @@
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="">الرئيسية </a>
                             </li>
-                            <li class="breadcrumb-item"><a href="">تعديل الاقسام الرئيسيه</a>
+                            <li class="breadcrumb-item"><a href=""> المتاجر</a>
                             </li>
-                        <li class="breadcrumb-item active">تعديل قسم {{$category->name}}</li>
+                            <li class="breadcrumb-item active">تعديل متجر 
+                            </li>
                         </ol>
                     </div>
                 </div>
@@ -24,7 +25,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title" id="basic-layout-form"> تعديل قسم رئيسي </h4>
+                                <h4 class="card-title" id="basic-layout-form"> تعديل متجر  </h4>
                                 <a class="heading-elements-toggle"><i
                                         class="la la-ellipsis-v font-medium-3"></i></a>
                                 <div class="heading-elements">
@@ -40,81 +41,146 @@
                             @include('admin.includes.alert.error')
                             <div class="card-content collapse show">
                                 <div class="card-body">
-                                <form class="form" action="{{route('admin.update.main_cat',$category->id)}}" method="post"
+                                <form class="form" action="{{route('admin.update.vendors', $vendor->id)}}" method="post"
                                           enctype="multipart/form-data">
                                         @csrf
-                                        <input type="hidden" name="id" value="{{$category->id}}">
+                                <input type="hidden" name="id" value="{{$vendor->id}}"> 
                                         {{-- show old photo --}}
-                                        <div class="form-group">
+                                         <div class="form-group">
                                             <div class="text-center">
-                                                <img src="{{$category->photo}}" class="rounded-circle height-150 width-150">
+                                                <img src="{{$vendor->logo}}" class="rounded-circle height-250 width-300">
                                             </div>
                                         </div>
                                         {{-- end show --}}
-                                        
                                         <div class="form-group">
-                                            <label> صوره القسم </label>
+                                            <label>اللوجو</label>
                                             <label id="projectinput7" class="file center-block">
-                                                <input type="file" id="file" name="photo">
-                                                @error('photo')
+                                                <input type="file" id="file" name="logo">
+                                                @error('logo')
                                                  <span class="text-danger">{{$message}} </span>
                                                 @enderror
                                                 <span class="file-custom"></span>
                                             </label>
-                                             <span class="text-danger"> </span>
                                          </div>
 
                                         <div class="form-body">
-                                            <h4 class="form-section"><i class="ft-home"></i> بيانات  القسم </h4>
+                                            <h4 class="form-section"><i class="ft-home"></i> بيانات  المتجر </h4>
                                             
 
+                                          
                                                 
                                             <div class="row">
-                                                <div class="col-md-12">
+                                                <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="projectinput1">اسم القسم {{__('messages.' . $category->translation_lang)}}</label>
-                                                    <input type="text" value="{{$category->name}}" id="name"
+                                                        <label for="projectinput1">اسم المتجر</label>
+                                                    <input type="text" value="{{$vendor->name}}" id="name"
                                                                class="form-control"
-                                                               placeholder="مثال ملابس"
-                                                               name="category[0][name]">
-                                                               @error("category.0.name")
-                                                               <span class="text-danger">{{$message}} </span>
+                                                               placeholder="الاسم"
+                                                               name="name">
+                                                               @error("name")
+                                                               <span style="color:blue;" class="text-danger">{{$message}} </span>
                                                               @enderror
                                                      </div>
                                                 </div>
 
-                                                <div class="col-md-6 hidden">
+                                                <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="projectinput1"> الاختصار  {{__('messages.' . $category->translation_lang)}}</label>
-                                                    <input type="text" value="{{$category->translation_lang}}" id="name"
+                                                        <label for="projectinput1">البريد الالكترونى</label>
+                                                    <input type="text" value="{{$vendor->email}}" id=""
                                                                class="form-control"
-                                                               placeholder="مثال ar"
-                                                               name="category[0][abbr]">
-                                                               @error("category.0.abbr")
-                                                               <span class="text-danger">هذا الحقل مطلوب</span>
+                                                               placeholder="E-mail"
+                                                               name="email">
+                                                               @error("email")
+                                                               <span class="text-danger">{{$message}}</span>
                                                               @enderror
                                                      </div>
                                                 </div>
+
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="projectinput1">كلمة المرور</label>
+                                                    <input type="password" value="{{$vendor->password}}" id=""
+                                                               class="form-control"
+                                                               placeholder="كلمة المرور"
+                                                               name="password">
+                                                               @error("password")
+                                                               <span class="text-danger">{{$message}}</span>
+                                                              @enderror
+                                                     </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="projectinput1">رقم الهاتف</label>
+                                                    <input type="text" value="{{$vendor->mobile}}" id="name"
+                                                               class="form-control"
+                                                               placeholder="رقم الهاتف"
+                                                               name="mobile">
+                                                               @error("mobile")
+                                                               <span class="text-danger">{{$message}}</span>
+                                                              @enderror
+                                                     </div>
+                                                </div>
+
+                                              
+                                            {{--  --}}
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="projectinput1">اختر القسم</label>
+                                                    <select class="select2 form-control" name="category_id">
+                                                        <optgroup label="من فضلك اختر القسم">
+                                                           @isset($maincategory)
+                                                             @foreach ($maincategory as $maincat)
+                                                        <option @if($vendor->category_id == $maincat->id) selected @endif value="{{$maincat->id}}">{{$maincat->name}}</option>
+                                                             @endforeach  
+                                                           @endisset
+                                                           
+                                                        </optgroup>
+                                                    </select>
+                                                           @error("name")
+                                                           <span class="text-danger">{{$message}} </span>
+                                                          @enderror
+                                                 </div>
                                             </div>
+                                     
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="projectinput1">العنوان</label>
+                                                <input type="text" value="{{$vendor->address}}" id=""
+                                                           class="form-control"
+                                                           placeholder="العنوان"
+                                                           name="address">
+                                                           @error("address")
+                                                           <span class="text-danger">{{$message}}</span>
+                                                          @enderror
+                                                 </div>
+                                            </div>
+                                       
+                                        </div>
 
 
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group mt-1">
-                                                        <input type="checkbox"  value="1" name="category[0][active]"
+                                                        <label for="switcheryColor4" class="card-title ml-1">الحالة</label>
+                                                        <input type="checkbox"  value="1" name="active"
                                                                id="switcheryColor4"
                                                                class="switchery" data-color="success"
-                                                                @if($category->active == 1) checked @endif/>
-                                                        <label for="switcheryColor4"
-                                                               class="card-title ml-1">الحالة {{__('messages.' . $category->translation_lang)}}</label>
+                                                              @if ($vendor->active==1)checked @endif/>
+                                                               @error("active")
+                                                               <span class="text-danger">{{$message}}</span>
+                                                              @enderror
 
                                                         <span class="text-danger"></span>
                                                     </div>
                                                 </div>
                                             </div>
+                                           
                                         </div>
-
-
+                                        {{-- google map --}}
+                                        <div id="map" style="width: 1000px;height:500px;"></div>
+                                        {{--  --------- --}}
                                         <div class="form-actions">
                                             <button type="button" class="btn btn-warning mr-1"
                                                     onclick="history.back();">
@@ -125,110 +191,6 @@
                                             </button>
                                         </div>
                                     </form>
-                                    
-                                    {{--  Other Languages  --}}
-                                    <ul class="nav nav-tabs">                                            
-                                        @isset($category->categories)
-                                        @foreach($category->categories as $index => $langs) 
-                                        <li class="nav-item">
-                                            <a class="nav-link @if($index == 0) active @endif" id="homeLable-tab"  data-toggle="tab"
-                                        href="#homeLable{{$index}}" aria-controls="homeLable"
-                                        aria-expanded="{{$index == 0 ? 'true' : 'false'}}">{{$langs->translation_lang}}</a>
-                                        </li>
-                                        @endforeach
-                                        @endisset
-                                      </ul>
-                                
-                                      <div class="tab-content px-1 pt-1">
-                                        @isset($category->categories)
-                                        @foreach($category->categories as $index => $langs) 
-                                        <div role="tabpanel" class="tab-pane @if($index == 0) active @endif" id="homeLable{{$index}}"
-                                        aria-labelledby="homeLable-tab"
-                                        aria-expanded="true">
-                                        <form class="form" action="{{route('admin.update.main_cat',$langs->id)}}" method="post"
-                                            enctype="multipart/form-data">
-                                          @csrf
-                                          <input type="hidden" name="id" value="{{$langs->id}}">
-                                          
-                                          <div class="form-group">
-                                              <label> صوره القسم </label>
-                                              <label id="projectinput7" class="file center-block">
-                                                  <input type="file" id="file" name="photo">
-                                                  @error('photo')
-                                                   <span class="text-danger">{{$message}} </span>
-                                                  @enderror
-                                                  <span class="file-custom"></span>
-                                              </label>
-                                               <span class="text-danger"> </span>
-                                           </div>
-  
-                                          <div class="form-body">
-                                              <h4 class="form-section"><i class="ft-home"></i> بيانات  القسم </h4>
-                                              
-  
-                                                  
-                                              <div class="row">
-                                                  <div class="col-md-12">
-                                                      <div class="form-group">
-                                                          <label for="projectinput1">اسم القسم {{__('messages.' . $langs->translation_lang)}}</label>
-                                                      <input type="text" value="{{$langs->name}}" id="name"
-                                                                 class="form-control"
-                                                                 placeholder="مثال ملابس"
-                                                                 name="category[0][name]">
-                                                                 @error("category.0.name")
-                                                                 <span class="text-danger">{{$message}} </span>
-                                                                @enderror
-                                                       </div>
-                                                  </div>
-  
-                                                  <div class="col-md-6 hidden">
-                                                      <div class="form-group">
-                                                          <label for="projectinput1"> الاختصار  {{__('messages.' . $langs->translation_lang)}}</label>
-                                                      <input type="text" value="{{$langs->translation_lang}}" id="name"
-                                                                 class="form-control"
-                                                                 placeholder="مثال ar"
-                                                                 name="category[0][abbr]">
-                                                                 @error("category.0.abbr")
-                                                                 <span class="text-danger">هذا الحقل مطلوب</span>
-                                                                @enderror
-                                                       </div>
-                                                  </div>
-                                              </div>
-  
-  
-                                              <div class="row">
-                                                  <div class="col-md-6">
-                                                      <div class="form-group mt-1">
-                                                          <input type="checkbox"  value="1" name="category[0][active]"
-                                                                 id="switcheryColor4"
-                                                                 class="switchery" data-color="success"
-                                                                  @if($langs->active == 1) checked @endif/>
-                                                          <label for="switcheryColor4"
-                                                                 class="card-title ml-1">الحالة {{__('messages.' . $langs->translation_lang)}}</label>
-  
-                                                          <span class="text-danger"></span>
-                                                      </div>
-                                                  </div>
-                                              </div>
-                                          </div>
-  
-  
-                                          <div class="form-actions">
-                                              <button type="button" class="btn btn-warning mr-1"
-                                                      onclick="history.back();">
-                                                  <i class="ft-x"></i> تراجع
-                                              </button>
-                                              <button type="submit" class="btn btn-primary">
-                                                  <i class="la la-check-square-o"></i> حفظ
-                                              </button>
-                                          </div>
-                                      </form>
-                                    </div>
-                                @endforeach
-                                @endisset
-                                 </div>
-                                
-                                
                                 </div>
                             </div>
                         </div>
@@ -240,3 +202,193 @@
     </div>
 </div>
     @stop
+
+@section('script')
+
+<script>
+    $("#pac-input").focusin(function() {
+        $(this).val('');
+    });
+    $('#latitude').val('');
+    $('#longitude').val('');
+    // This example adds a search box to a map, using the Google Place Autocomplete
+    // feature. People can enter geographical searches. The search box will return a
+    // pick list containing a mix of places and predicted search terms.
+    // This example requires the Places library. Include the libraries=places
+    // parameter when you first load the API. For example:
+    // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+    function initAutocomplete() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 24.740691, lng: 46.6528521 },
+            zoom: 13,
+            mapTypeId: 'roadmap'
+        });
+        // move pin and current location
+        infoWindow = new google.maps.InfoWindow;
+        geocoder = new google.maps.Geocoder();
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                map.setCenter(pos);
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(pos),
+                    map: map,
+                    title: 'موقعك الحالي'
+                });
+                markers.push(marker);
+                marker.addListener('click', function() {
+                    geocodeLatLng(geocoder, map, infoWindow,marker);
+                });
+                // to get current position address on load
+                google.maps.event.trigger(marker, 'click');
+            }, function() {
+                handleLocationError(true, infoWindow, map.getCenter());
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            console.log('dsdsdsdsddsd');
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
+        var geocoder = new google.maps.Geocoder();
+        google.maps.event.addListener(map, 'click', function(event) {
+            SelectedLatLng = event.latLng;
+            geocoder.geocode({
+                'latLng': event.latLng
+            }, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (results[0]) {
+                        deleteMarkers();
+                        addMarkerRunTime(event.latLng);
+                        SelectedLocation = results[0].formatted_address;
+                        console.log( results[0].formatted_address);
+                        splitLatLng(String(event.latLng));
+                        $("#pac-input").val(results[0].formatted_address);
+                    }
+                }
+            });
+        });
+        function geocodeLatLng(geocoder, map, infowindow,markerCurrent) {
+            var latlng = {lat: markerCurrent.position.lat(), lng: markerCurrent.position.lng()};
+            /* $('#branch-latLng').val("("+markerCurrent.position.lat() +","+markerCurrent.position.lng()+")");*/
+            $('#latitude').val(markerCurrent.position.lat());
+            $('#longitude').val(markerCurrent.position.lng());
+            geocoder.geocode({'location': latlng}, function(results, status) {
+                if (status === 'OK') {
+                    if (results[0]) {
+                        map.setZoom(8);
+                        var marker = new google.maps.Marker({
+                            position: latlng,
+                            map: map
+                        });
+                        markers.push(marker);
+                        infowindow.setContent(results[0].formatted_address);
+                        SelectedLocation = results[0].formatted_address;
+                        $("#pac-input").val(results[0].formatted_address);
+                        infowindow.open(map, marker);
+                    } else {
+                        window.alert('No results found');
+                    }
+                } else {
+                    window.alert('Geocoder failed due to: ' + status);
+                }
+            });
+            SelectedLatLng =(markerCurrent.position.lat(),markerCurrent.position.lng());
+        }
+        function addMarkerRunTime(location) {
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map
+            });
+            markers.push(marker);
+        }
+        function setMapOnAll(map) {
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(map);
+            }
+        }
+        function clearMarkers() {
+            setMapOnAll(null);
+        }
+        function deleteMarkers() {
+            clearMarkers();
+            markers = [];
+        }
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        $("#pac-input").val("أبحث هنا ");
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+            searchBox.setBounds(map.getBounds());
+        });
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+            var places = searchBox.getPlaces();
+            if (places.length == 0) {
+                return;
+            }
+            // Clear out the old markers.
+            markers.forEach(function(marker) {
+                marker.setMap(null);
+            });
+            markers = [];
+            // For each place, get the icon, name and location.
+            var bounds = new google.maps.LatLngBounds();
+            places.forEach(function(place) {
+                if (!place.geometry) {
+                    console.log("Returned place contains no geometry");
+                    return;
+                }
+                var icon = {
+                    url: place.icon,
+                    size: new google.maps.Size(100, 100),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(17, 34),
+                    scaledSize: new google.maps.Size(25, 25)
+                };
+                // Create a marker for each place.
+                markers.push(new google.maps.Marker({
+                    map: map,
+                    icon: icon,
+                    title: place.name,
+                    position: place.geometry.location
+                }));
+                $('#latitude').val(place.geometry.location.lat());
+                $('#longitude').val(place.geometry.location.lng());
+                if (place.geometry.viewport) {
+                    // Only geocodes have viewport.
+                    bounds.union(place.geometry.viewport);
+                } else {
+                    bounds.extend(place.geometry.location);
+                }
+            });
+            map.fitBounds(bounds);
+        });
+    }
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+            'Error: The Geolocation service failed.' :
+            'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+    }
+    function splitLatLng(latLng){
+        var newString = latLng.substring(0, latLng.length-1);
+        var newString2 = newString.substring(1);
+        var trainindIdArray = newString2.split(',');
+        var lat = trainindIdArray[0];
+        var Lng  = trainindIdArray[1];
+        $("#latitude").val(lat);
+        $("#longitude").val(Lng);
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCejUDjFG0Q-RVLtmhZL7cnamW2LCnW2w&libraries=places&callback=initAutocomplete&language=ar&region=EG
+     async defer"></script>
+
+@stop

@@ -91,6 +91,19 @@
 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
+                                                        <label for="projectinput1">كلمة المرور</label>
+                                                    <input type="password" value="" id=""
+                                                               class="form-control"
+                                                               placeholder="كلمة المرور"
+                                                               name="password">
+                                                               @error("password")
+                                                               <span class="text-danger">{{$message}}</span>
+                                                              @enderror
+                                                     </div>
+                                                </div>
+                                                
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
                                                         <label for="projectinput1">رقم الهاتف</label>
                                                     <input type="text" value="" id="name"
                                                                class="form-control"

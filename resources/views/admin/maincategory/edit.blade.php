@@ -43,7 +43,9 @@
                                 <form class="form" action="{{route('admin.update.main_cat',$category->id)}}" method="post"
                                           enctype="multipart/form-data">
                                         @csrf
+                                       
                                         <input type="hidden" name="id" value="{{$category->id}}">
+                                        
                                         {{-- show old photo --}}
                                         <div class="form-group">
                                             <div class="text-center">
@@ -66,7 +68,6 @@
 
                                         <div class="form-body">
                                             <h4 class="form-section"><i class="ft-home"></i> بيانات  القسم </h4>
-                                            
 
                                                 
                                             <div class="row">

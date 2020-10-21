@@ -47,6 +47,7 @@ Route::group(['middleware'=> 'auth:admin', 'namespace'=>'admin'], function(){
 	Route::get('edit/{id}', 'maincategorycontroller@edit')->name('admin.edit.main_cat');
 	Route::post('update/{id}', 'maincategorycontroller@update')->name('admin.update.main_cat');
 	Route::get('delete/{id}', 'maincategorycontroller@destroy')->name('admin.delete.main_cat');
+	Route::get('change_status/{id}', 'maincategorycontroller@change_status')->name('admin.change_status.main_cat');
 		
 	});	
 
@@ -58,7 +59,29 @@ Route::group(['middleware'=> 'auth:admin', 'namespace'=>'admin'], function(){
 		Route::get('edit/{id}', 'vendorscontroller@edit')->name('admin.edit.vendors');
 		Route::post('update/{id}', 'vendorscontroller@update')->name('admin.update.vendors');
 		Route::get('delete/{id}', 'vendorscontroller@destroy')->name('admin.delete.vendors');
-			
+		Route::get('change_status/{id}', 'vendorscontroller@change_status')->name('admin.change_status.vendors');	
 		});	
 
-});
+
+		// begin subcategory Group //
+	Route::group(['prefix'=>'sub_category'],function(){
+		Route::get('/', 'subcategory@index')->name('admin.subcategory');
+		Route::get('create', 'subcategory@create')->name('admin.subcategory.create');
+		Route::post('store', 'subcategory@store')->name('admin.subcategory.store');	
+		Route::get('edit/{id}', 'subcategory@edit')->name('admin.subcategory.vendors');
+		Route::post('update/{id}', 'subcategory@update')->name('admin.subcategory.update');
+		Route::get('delete/{id}', 'subcategory@destroy')->name('admin.subcategory.delete');
+			
+		});	
+		//////// test relation  ////
+		route::get('maincat', function(){
+			$main = \App\models\MainCategory::with('subcategories')->find(3);
+			return $main;
+		});
+
+		route::get('submaincat', function(){
+			$main = App\models\subcategory::find(1);
+			return $main->MainCategory;
+		});
+
+	});

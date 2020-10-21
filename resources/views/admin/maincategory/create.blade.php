@@ -101,8 +101,7 @@
                                                                checked/>
                                                         <label for="switcheryColor4"
                                                                class="card-title ml-1">الحالة {{__('messages.' . $langs->abbr)}}</label>
-
-                                                        <span class="text-danger"></span>
+                                                             
                                                     </div>
                                                 </div>
                                             </div>

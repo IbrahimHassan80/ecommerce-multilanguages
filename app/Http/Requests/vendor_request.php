@@ -25,11 +25,12 @@ class vendor_request extends FormRequest
     {
         return [
             'logo' => 'required_without:id|mimes:jpg:jpeg:,png',
+            'password' => 'required_without:id',
             'name' => 'required|string|max:100',
-            'mobile' => 'required|numeric',
-            'email' => 'sometimes|nullable|email',
+            'mobile' => 'required|numeric|unique:vendors,mobile,'.$this->id,
+            'email' => 'required|email|unique:vendors,email,'.$this->id,
             'category_id' => 'required|exists:main_categories,id',
-            'address' => 'required|max:300',
+            'address' => 'required|max:300'           
         ];
     }
 
